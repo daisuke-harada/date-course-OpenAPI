@@ -197,61 +197,31 @@ paths:
             application/json:
               schema:
                 $ref: "./components/schemas/response/relationship.yaml#/components/schemas/FollowResponseData"
-  /api/v1/date_spot_name_search:
-    post:
-      tags: ["date_spot"]
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: "./components/schemas/request/date_spots.yaml#/components/schemas/DateSpotNameSearchData"
-      responses:
-        "200":
-          description: "Successful response"
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "./components/schemas/response/address_and_date_spots.yaml#/components/schemas/AddressAndDateSpotsData"
-  /api/v1/date_spots/sort:
-    post:
-      tags: ["date_spot"]
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: "./components/schemas/request/date_spots.yaml#/components/schemas/DateSpotSortData"
-      responses:
-        "200":
-          description: "Successful response"
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "./components/schemas/response/date_spots.yaml#/components/schemas/DateSpotSortResponseData"
-  /api/v1/courses/sort:
-    post:
-      tags: ["course"]
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: "./components/schemas/request/courses.yaml#/components/schemas/CourseSortRequestData"
-      responses:
-        "200":
-          description: "Successful response"
-          content:
-            application/json:
-              schema:
-                $ref: "./components/schemas/response/courses.yaml#/components/schemas/CourseSortResponseData"
   /api/v1/date_spots:
     get:
       tags: ["date_spot"]
+      parameters:
+        - in: query
+          name: date_spot_name
+          schema:
+            type: string
+          description: "デートスポット名での部分一致検索"
+        - in: query
+          name: prefecture_id
+          schema:
+            type: integer
+          description: "都道府県IDでの絞り込み"
+        - in: query
+          name: genre_id
+          schema:
+            type: integer
+          description: "ジャンルIDでの絞り込み"
+        - in: query
+          name: come_time
+          schema:
+            type: string
+            format: date-time
+          description: "来店時間での絞り込み"
       responses:
         "200":
           description: "Successful response"
@@ -382,6 +352,12 @@ paths:
   /api/v1/courses:
     get:
       tags: ["course"]
+      parameters:
+        - in: query
+          name: prefecture_id
+          schema:
+            type: integer
+          description: "都道府県IDでの絞り込み"
       responses:
         "200":
           description: "Successful response"

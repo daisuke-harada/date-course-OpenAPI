@@ -1,12 +1,5 @@
 components:
   schemas:
-    CourseSortRequestData:
-      type: object
-      required:
-        - prefecture_id
-      properties:
-        prefecture_id:
-          type: integer
     CourseFormRequestData:
       type: object
       required:
